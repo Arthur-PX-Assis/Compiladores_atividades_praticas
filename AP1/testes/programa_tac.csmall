@@ -1,0 +1,15 @@
+int a;
+int b;
+int s;
+
+a = 5;
+b = 2;
+s = 0;
+
+if (a > b) {
+    s = a - b;
+} else {
+    s = b - a;
+}
+
+print(s);

@@ -1,0 +1,82 @@
+
+int a;
+int b;
+int resultado;
+int contador;
+int limite;
+
+a = 10;
+b = 3;
+resultado = 0;
+contador = 0;
+limite = 5;
+
+// Operações aritméticas e precedência
+resultado = a + b * 2;
+print(resultado);
+
+resultado = (a + b) * 2;
+print(resultado);
+
+resultado = a - b / 1;
+print(resultado);
+
+resultado = a * b + 20 / 4;
+print(resultado);
+
+// Condições relacionais e if/else
+if (a > b) {
+    resultado = a - b;
+    print(resultado);
+} else {
+    resultado = a + b;
+    print(resultado);
+}
+
+if (a < b) {
+    resultado = 100;
+} else {
+    resultado = 200;
+}
+print(resultado);
+
+if (a >= 10) {
+    resultado = resultado + 1;
+}
+
+if (b <= 3) {
+    resultado = resultado + 2;
+}
+
+if (a == 10) {
+    resultado = resultado + 3;
+}
+
+if (b != 0) {
+    resultado = resultado + 4;
+}
+
+print(resultado);
+
+// While com condição relacional
+while (contador < limite) {
+    resultado = resultado + contador;
+    contador = contador + 1;
+}
+
+print(resultado);
+
+// While com bloco e condição composta por operações
+contador = 0;
+
+while (contador <= 3) {
+    if (contador != 2) {
+        resultado = resultado + 10;
+    } else {
+        resultado = resultado - 1;
+    }
+
+    contador = contador + 1;
+}
+
+print(resultado);

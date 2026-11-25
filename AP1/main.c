@@ -1,23 +1,36 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "csmall.h"
 
-int main(int argc, char **argv){
-    // Checa se passou o arquivo no terminal
-    if (argc != 2){
-        fprintf(stderr, "Uso: %s arquivo.csmall\n", argv[0]);
+int main(int argc, char **argv) {
+    if (argc < 2 || argc > 3) {
+        fprintf(stderr, "Uso: %s arquivo.csmall [saida.tac]\n", argv[0]);
         return EXIT_FAILURE;
     }
 
+    const char *nomeSaida = (argc == 3) ? argv[2] : "programa_tac.tac";
     CodigoFonte codigo;
-    if (!abrirCodigoFonte(&codigo, argv[1])) return EXIT_FAILURE; // argv[1] é o nome da entrada
+    if (!abrirCodigoFonte(&codigo, argv[1])) return EXIT_FAILURE;
 
-    Parser parser;
+    FILE *saida = fopen(nomeSaida, "w");
+    if (!saida) {
+        fprintf(stderr, "Não foi possível criar o arquivo de saída: %s\n", nomeSaida);
+        fecharCodigoFonte(&codigo);
+        return EXIT_FAILURE;
+    }
+
+    Parser parser = {0};
     parser.codigo = &codigo;
+    parser.saidaTac = saida;
+    int sucesso = analisarPrograma(&parser);
 
-    if (analisarPrograma(&parser)) printf("Compilação concluída com sucesso! Nenhum erro encontrado.\n");
-    else printf("A compilação falhou por conta de erros no código-fonte.\n");
-
+    fclose(saida);
     fecharCodigoFonte(&codigo);
-    return EXIT_SUCCESS;
+
+    if (sucesso) {
+        printf("Compilação concluída com sucesso. TAC salvo em '%s'.\n", nomeSaida);
+        return EXIT_SUCCESS;
+    }
+
+    remove(nomeSaida);
+    fprintf(stderr, "A compilação falhou. O arquivo TAC não foi mantido.\n");
+    return EXIT_FAILURE;
 }

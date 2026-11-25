@@ -1,8 +1,0 @@
-int valor;
-valor = 10;
-{
-    float valor;
-    valor = 2.5;
-    print(valor);
-}
-print(valor);

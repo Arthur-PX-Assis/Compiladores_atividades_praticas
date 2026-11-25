@@ -1,17 +1,18 @@
+
 CC = gcc
-CFLAGS = -Wall -Wextra
+CFLAGS = -std=c11 -Wall -Wextra -pedantic -g
 TARGET = compilador
 SRCS = main.c csmall.c
 
-TEST_FILE = testes/ex6.txt
+.PHONY: all run clean
 
 all: $(TARGET)
 
-$(TARGET): $(SRCS)
+$(TARGET): $(SRCS) csmall.h
 	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET)
 
 run: $(TARGET)
-	./$(TARGET) $(TEST_FILE)
+	./$(TARGET) testes/programa_tac.csmall programa_tac.tac
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) programa_tac.tac teste_completo.tac
